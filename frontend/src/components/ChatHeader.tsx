@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
 import { spacing, fontSize } from '../theme/spacing';
 
@@ -17,7 +16,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
     <View style={styles.container}>
       <View style={styles.infoContainer}>
         <View style={styles.avatarContainer}>
-          <Ionicons name="chatbubbles" size={24} color={colors.textWhite} />
+          <Text style={styles.avatarEmoji}>💬</Text>
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.title}>Chat Room</Text>
@@ -31,7 +30,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
       </View>
       
       <TouchableOpacity onPress={onLogout} style={styles.logoutButton}>
-        <Ionicons name="log-out-outline" size={24} color={colors.textWhite} />
+        <Text style={styles.logoutEmoji}>🚪</Text>
       </TouchableOpacity>
     </View>
   );
@@ -43,8 +42,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    backgroundColor: colors.primary,
+    paddingVertical: spacing.md,
+    backgroundColor: colors.surface,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
   },
   infoContainer: {
     flexDirection: 'row',
@@ -55,10 +56,13 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: colors.primaryLight,
+    backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: spacing.sm,
+  },
+  avatarEmoji: {
+    fontSize: 20,
   },
   textContainer: {
     flex: 1,
@@ -66,7 +70,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: fontSize.lg,
     fontWeight: 'bold',
-    color: colors.textWhite,
+    color: colors.textPrimary,
   },
   statusContainer: {
     flexDirection: 'row',
@@ -82,10 +86,12 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: fontSize.sm,
-    color: colors.textWhite,
-    opacity: 0.8,
+    color: colors.textSecondary,
   },
   logoutButton: {
     padding: spacing.sm,
+  },
+  logoutEmoji: {
+    fontSize: 24,
   },
 });

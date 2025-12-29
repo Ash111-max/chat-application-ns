@@ -13,7 +13,6 @@ import {
   StatusBar,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Ionicons } from '@expo/vector-icons';
 import SocketService from '../services/SocketService';
 import { colors } from '../theme/colors';
 import { spacing, fontSize, borderRadius } from '../theme/spacing';
@@ -99,7 +98,6 @@ export const RegisterScreen: React.FC<Props> = ({ navigation }) => {
     setLoading(true);
 
     try {
-      // Connect to server if not connected
       if (!SocketService.isConnected()) {
         const connected = await connectToServer();
         if (!connected) {
@@ -108,7 +106,6 @@ export const RegisterScreen: React.FC<Props> = ({ navigation }) => {
         }
       }
 
-      // Set up register response listener
       SocketService.on(MESSAGE_TYPES.REGISTER_RESPONSE as any, (response: RegisterResponse) => {
         setLoading(false);
 
@@ -128,7 +125,6 @@ export const RegisterScreen: React.FC<Props> = ({ navigation }) => {
         }
       });
 
-      // Send register request
       SocketService.register(username.trim(), password);
     } catch (error) {
       setLoading(false);
@@ -139,7 +135,7 @@ export const RegisterScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
+      <StatusBar barStyle="light-content" backgroundColor={colors.background} />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={styles.container}
@@ -147,21 +143,19 @@ export const RegisterScreen: React.FC<Props> = ({ navigation }) => {
         <ScrollView
           contentContainerStyle={styles.scrollContainer}
           keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
         >
-          {/* Header */}
           <View style={styles.headerContainer}>
             <View style={styles.logoContainer}>
-              <Ionicons name="person-add" size={60} color={colors.primary} />
+              <Text style={styles.logoEmoji}>✨</Text>
             </View>
             <Text style={styles.title}>Create Account</Text>
             <Text style={styles.subtitle}>Join the chat community</Text>
           </View>
 
-          {/* Form */}
           <View style={styles.formContainer}>
-            {/* Username Input */}
             <View style={styles.inputWrapper}>
-              <Ionicons name="person-outline" size={20} color={colors.textSecondary} style={styles.inputIcon} />
+              <Text style={styles.inputIcon}>👤</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Username"
@@ -174,9 +168,8 @@ export const RegisterScreen: React.FC<Props> = ({ navigation }) => {
               />
             </View>
 
-            {/* Password Input */}
             <View style={styles.inputWrapper}>
-              <Ionicons name="lock-closed-outline" size={20} color={colors.textSecondary} style={styles.inputIcon} />
+              <Text style={styles.inputIcon}>🔒</Text>
               <TextInput
                 style={[styles.input, styles.passwordInput]}
                 placeholder="Password"
@@ -190,17 +183,12 @@ export const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                 onPress={() => setShowPassword(!showPassword)}
                 style={styles.eyeIcon}
               >
-                <Ionicons
-                  name={showPassword ? 'eye-outline' : 'eye-off-outline'}
-                  size={20}
-                  color={colors.textSecondary}
-                />
+                <Text style={styles.eyeEmoji}>{showPassword ? '👁️' : '🙈'}</Text>
               </TouchableOpacity>
             </View>
 
-            {/* Confirm Password Input */}
             <View style={styles.inputWrapper}>
-              <Ionicons name="lock-closed-outline" size={20} color={colors.textSecondary} style={styles.inputIcon} />
+              <Text style={styles.inputIcon}>🔒</Text>
               <TextInput
                 style={[styles.input, styles.passwordInput]}
                 placeholder="Confirm Password"
@@ -214,15 +202,10 @@ export const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                 onPress={() => setShowConfirmPassword(!showConfirmPassword)}
                 style={styles.eyeIcon}
               >
-                <Ionicons
-                  name={showConfirmPassword ? 'eye-outline' : 'eye-off-outline'}
-                  size={20}
-                  color={colors.textSecondary}
-                />
+                <Text style={styles.eyeEmoji}>{showConfirmPassword ? '👁️' : '🙈'}</Text>
               </TouchableOpacity>
             </View>
 
-            {/* Register Button */}
             <TouchableOpacity
               style={[styles.button, (loading || connecting) && styles.buttonDisabled]}
               onPress={handleRegister}
@@ -232,16 +215,12 @@ export const RegisterScreen: React.FC<Props> = ({ navigation }) => {
               {loading || connecting ? (
                 <ActivityIndicator color={colors.textWhite} />
               ) : (
-                <>
-                  <Text style={styles.buttonText}>
-                    {connecting ? 'Connecting...' : 'Create Account'}
-                  </Text>
-                  <Ionicons name="checkmark-circle" size={20} color={colors.textWhite} />
-                </>
+                <Text style={styles.buttonText}>
+                  {connecting ? 'Connecting...' : 'Create Account'}
+                </Text>
               )}
             </TouchableOpacity>
 
-            {/* Login Link */}
             <View style={styles.linkContainer}>
               <Text style={styles.linkLabel}>Already have an account? </Text>
               <TouchableOpacity
@@ -253,9 +232,7 @@ export const RegisterScreen: React.FC<Props> = ({ navigation }) => {
             </View>
           </View>
 
-          {/* Footer */}
           <View style={styles.footer}>
-            <Ionicons name="shield-checkmark-outline" size={16} color={colors.textLight} />
             <Text style={styles.footerText}>
               Your data is secure and encrypted
             </Text>
@@ -278,7 +255,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     alignItems: 'center',
-    marginBottom: spacing.xl,
+    marginBottom: spacing.xxl,
   },
   logoContainer: {
     width: 100,
@@ -288,16 +265,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: spacing.lg,
-    shadowColor: colors.shadow,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
+    borderWidth: 2,
+    borderColor: colors.primary,
+  },
+  logoEmoji: {
+    fontSize: 50,
   },
   title: {
     fontSize: fontSize.xxxl,
     fontWeight: 'bold',
-    color: colors.primary,
+    color: colors.textPrimary,
     marginBottom: spacing.xs,
   },
   subtitle: {
@@ -308,16 +285,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderRadius: borderRadius.xl,
     padding: spacing.lg,
-    shadowColor: colors.shadow,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
   inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.background,
+    backgroundColor: colors.inputBackground,
     borderRadius: borderRadius.lg,
     paddingHorizontal: spacing.md,
     marginBottom: spacing.md,
@@ -325,6 +299,7 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
   },
   inputIcon: {
+    fontSize: 20,
     marginRight: spacing.sm,
   },
   input: {
@@ -341,28 +316,24 @@ const styles = StyleSheet.create({
     right: spacing.md,
     padding: spacing.xs,
   },
+  eyeEmoji: {
+    fontSize: 20,
+  },
   button: {
-    flexDirection: 'row',
     backgroundColor: colors.primary,
     borderRadius: borderRadius.lg,
     padding: spacing.md,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: spacing.md,
-    shadowColor: colors.shadow,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3,
-    elevation: 5,
   },
   buttonDisabled: {
-    backgroundColor: colors.border,
+    opacity: 0.5,
   },
   buttonText: {
     color: colors.textWhite,
     fontSize: fontSize.lg,
     fontWeight: 'bold',
-    marginRight: spacing.sm,
   },
   linkContainer: {
     flexDirection: 'row',
@@ -379,15 +350,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   footer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
     marginTop: spacing.xl,
-    gap: spacing.xs,
   },
   footerText: {
     fontSize: fontSize.sm,
     color: colors.textLight,
-    marginLeft: spacing.xs,
+    textAlign: 'center',
   },
 });

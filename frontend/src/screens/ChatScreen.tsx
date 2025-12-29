@@ -28,18 +28,13 @@ export const ChatScreen: React.FC<Props> = ({ route, navigation }) => {
   const flatListRef = useRef<FlatList>(null);
 
   useEffect(() => {
-    // Set up navigation options
     navigation.setOptions({
       headerShown: false,
     });
 
-    // Set up message listeners
     setupMessageListeners();
-
-    // Load message history
     loadMessageHistory();
 
-    // Cleanup on unmount
     return () => {
       SocketService.off(MESSAGE_TYPES.NEW_MESSAGE as any);
       SocketService.off(MESSAGE_TYPES.HISTORY_RESPONSE as any);
@@ -47,7 +42,6 @@ export const ChatScreen: React.FC<Props> = ({ route, navigation }) => {
   }, []);
 
   const setupMessageListeners = () => {
-    // Listen for new messages
     SocketService.on(MESSAGE_TYPES.NEW_MESSAGE as any, (data: NewMessageBroadcast) => {
       const newMessage: Message = {
         id: Date.now().toString() + Math.random(),
@@ -59,13 +53,11 @@ export const ChatScreen: React.FC<Props> = ({ route, navigation }) => {
 
       setMessages((prevMessages) => [...prevMessages, newMessage]);
 
-      // Scroll to bottom
       setTimeout(() => {
         flatListRef.current?.scrollToEnd({ animated: true });
       }, 100);
     });
 
-    // Listen for message history
     SocketService.on(MESSAGE_TYPES.HISTORY_RESPONSE as any, (data: HistoryResponse) => {
       if (data.messages && Array.isArray(data.messages)) {
         const formattedMessages: Message[] = data.messages.map((msg, index) => ({
@@ -79,7 +71,6 @@ export const ChatScreen: React.FC<Props> = ({ route, navigation }) => {
         setMessages(formattedMessages);
         setLoading(false);
 
-        // Scroll to bottom after loading history
         setTimeout(() => {
           flatListRef.current?.scrollToEnd({ animated: false });
         }, 100);
@@ -92,7 +83,6 @@ export const ChatScreen: React.FC<Props> = ({ route, navigation }) => {
   const loadMessageHistory = () => {
     SocketService.getHistory(50);
 
-    // Set timeout in case server doesn't respond
     setTimeout(() => {
       if (loading) {
         setLoading(false);
@@ -120,13 +110,8 @@ export const ChatScreen: React.FC<Props> = ({ route, navigation }) => {
           text: 'Logout',
           style: 'destructive',
           onPress: async () => {
-            // Disconnect from server
             SocketService.disconnect();
-
-            // Clear stored data
             await AsyncStorage.multiRemove([STORAGE_KEYS.USERNAME, STORAGE_KEYS.USER_ID]);
-
-            // Navigate back to login
             navigation.replace('Login');
           },
         },
@@ -162,12 +147,10 @@ export const ChatScreen: React.FC<Props> = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
+      <StatusBar barStyle="light-content" backgroundColor={colors.background} />
       
-      {/* Custom Header */}
       <ChatHeader onLogout={handleLogout} />
 
-      {/* Messages List */}
       <View style={styles.chatContainer}>
         <FlatList
           ref={flatListRef}
@@ -183,7 +166,6 @@ export const ChatScreen: React.FC<Props> = ({ route, navigation }) => {
         />
       </View>
 
-      {/* Message Input */}
       <MessageInput onSend={handleSendMessage} />
     </View>
   );
@@ -192,7 +174,7 @@ export const ChatScreen: React.FC<Props> = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.backgroundLight,
   },
   chatContainer: {
     flex: 1,

@@ -59,7 +59,6 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({
         </View>
       </View>
       
-      {/* WhatsApp-style bubble tail */}
       <View
         style={[
           styles.bubbleTail,
@@ -87,12 +86,6 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.xs,
     borderRadius: borderRadius.md,
     position: 'relative',
-    // Shadow for depth
-    shadowColor: colors.shadow,
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 1,
-    elevation: 1,
   },
   ownMessage: {
     backgroundColor: colors.sentMessage,
@@ -141,7 +134,6 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontWeight: 'bold',
   },
-  // WhatsApp-style bubble tails
   bubbleTail: {
     position: 'absolute',
     bottom: 0,
