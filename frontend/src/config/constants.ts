@@ -4,7 +4,7 @@
 // IMPORTANT: Replace with your backend server's IP address
 // Both devices must be on the same WiFi network
 export const SERVER_CONFIG = {
-  host: '192.168.1.5', // REPLACE WITH YOUR BACKEND IP
+  host: '192.168.0.10', // REPLACE WITH YOUR BACKEND IP
   port: 5555,
   reconnectDelay: 2000,
   maxReconnectAttempts: 5,
