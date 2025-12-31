@@ -1,3 +1,4 @@
+# backend/test_db.py
 from auth import register_user, login_user
 from message_handler import save_message, get_message_history
 
