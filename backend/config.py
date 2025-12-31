@@ -12,7 +12,7 @@ DB_CONFIG = {
 }
 
 SERVER_HOST = os.getenv("SERVER_HOST", "0.0.0.0")
-SERVER_PORT = int(os.getenv("SERVER_PORT", 5555))
+SERVER_PORT = int(os.getenv("SERVER_PORT", 8000))
 
 # TEMP TEST (add this line)
 print(DB_CONFIG)
