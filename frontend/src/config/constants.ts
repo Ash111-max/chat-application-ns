@@ -1,56 +1,35 @@
 // src/config/constants.ts
 
-// ============================================
-// CONFIGURATION MODE - CHOOSE ONE
-// ============================================
-
-// Set this to switch between modes easily
-const USE_LOCAL = true; // true = Local IP, false = Tunnel
+import Constants from 'expo-constants';
 
 // ============================================
-// LOCAL NETWORK CONFIGURATION
+// SERVER CONFIGURATION (from .env)
 // ============================================
-// When both devices are on SAME WiFi network
-// 1. Run: ipconfig (Windows) or ifconfig (Mac/Linux)
-// 2. Find your IPv4 Address (e.g., 192.168.1.105)
-// 3. Replace below:
-const LOCAL_CONFIG = {
-  host: '192.168.x.x', // REPLACE WITH YOUR COMPUTER'S IP
+
+// Fallback defaults (only used if .env is missing)
+const fallbackConfig = {
+  host: 'localhost',
   port: 5555,
   useHttps: false,
 };
 
-// ============================================
-// TUNNEL CONFIGURATION
-// ============================================
-// When using: npx expo start --tunnel
-// 1. Wait for tunnel to start (30-60 seconds)
-// 2. Look for line: "Tunnel ready."
-// 3. Copy ONLY the domain from the URL
-// Example: exp://abc-123-xyz.tunnelapp.dev:443
-// Use only: abc-123-xyz.tunnelapp.dev
-const TUNNEL_CONFIG = {
-  host: 'xnjyebo-anonymous-8081.exp.direct', // UPDATE THIS
-  port: 5555,
-  useHttps: true, // MUST be true for tunnel
+// Get values from .env via app.json extra
+const env = Constants.expoConfig?.extra || {};
+
+export const SERVER_CONFIG = {
+  host: (env.SERVER_HOST as string) || fallbackConfig.host,
+  port: Number(env.SERVER_PORT as string) || fallbackConfig.port,
+  useHttps: (env.SERVER_USE_HTTPS as string) === 'true' || fallbackConfig.useHttps,
 };
 
-// ============================================
-// ACTIVE CONFIGURATION (Don't modify below)
-// ============================================
-export const SERVER_CONFIG = USE_LOCAL ? LOCAL_CONFIG : TUNNEL_CONFIG;
-
-// Helper function to build full URL
+// Helper to build full URL
 export const getServerUrl = (): string => {
   const protocol = SERVER_CONFIG.useHttps ? 'https' : 'http';
   return `${protocol}://${SERVER_CONFIG.host}:${SERVER_CONFIG.port}`;
 };
 
-// Log current configuration (helps with debugging)
-console.log('🔧 Server Configuration:', {
-  mode: USE_LOCAL ? 'LOCAL' : 'TUNNEL',
-  url: getServerUrl(),
-});
+// Debug log (very helpful during development)
+console.log('🔧 Server URL:', getServerUrl());
 
 // ============================================
 // APP CONFIGURATION
