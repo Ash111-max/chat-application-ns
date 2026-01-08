@@ -184,7 +184,7 @@ export const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                 onPress={() => setShowPassword(!showPassword)}
                 style={styles.eyeIcon}
               >
-                <Text style={styles.eyeEmoji}>{showPassword ? '👁️' : '🙈'}</Text>
+                <Text style={styles.eyeEmoji}>{showPassword ? '👁️' : '︶'}</Text>
               </TouchableOpacity>
             </View>
 
@@ -203,7 +203,7 @@ export const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                 onPress={() => setShowConfirmPassword(!showConfirmPassword)}
                 style={styles.eyeIcon}
               >
-                <Text style={styles.eyeEmoji}>{showConfirmPassword ? '👁️' : '🙈'}</Text>
+                <Text style={styles.eyeEmoji}>{showConfirmPassword ? '👁️' : '︶'}</Text>
               </TouchableOpacity>
             </View>
 

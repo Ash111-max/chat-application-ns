@@ -82,7 +82,7 @@ export const ChatScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   const loadMessageHistory = () => {
-    SocketService.getHistory(50);
+    SocketService.getHistory(1000);
 
     setTimeout(() => {
       if (loading) {

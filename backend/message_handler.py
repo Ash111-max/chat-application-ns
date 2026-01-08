@@ -25,7 +25,7 @@ def save_message(sender_id: int, sender_username: str, message: str):
         conn.close()
 
 
-def get_message_history(limit=50):
+def get_message_history(limit=1000):
     """Get recent message history"""
     conn = get_db_connection()
     cursor = conn.cursor()

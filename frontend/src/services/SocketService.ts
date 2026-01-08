@@ -264,7 +264,7 @@ class SocketService {
   /**
    * Request message history
    */
-  getHistory(limit: number = 50): boolean {
+  getHistory(limit: number = 1000): boolean {
     console.log('📜 Requesting message history, limit:', limit);
     return this.emit('get_history', {
       limit,

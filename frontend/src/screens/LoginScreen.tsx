@@ -197,7 +197,7 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
                 onPress={() => setShowPassword(!showPassword)}
                 style={styles.eyeIcon}
               >
-                <Text style={styles.eyeEmoji}>{showPassword ? '👁️' : '🙈'}</Text>
+                <Text style={styles.eyeEmoji}>{showPassword ? '👁️' : '︶'}</Text>
               </TouchableOpacity>
             </View>
 

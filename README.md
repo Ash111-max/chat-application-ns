@@ -1,6 +1,7 @@
+```
 # Real-Time Chat Application
 
-A real-time chat application built with Python socket server backend and React Native mobile frontend.
+A real-time chat application with a Python socket server backend and React Native mobile frontend. Supports user registration, login, real-time messaging, and message history persistence.
 
 ## 👥 Team Members
 - **Frontend Developer**: Astle - React Native Mobile App
@@ -11,177 +12,86 @@ A real-time chat application built with Python socket server backend and React N
 ```
 chat-application/
 ├── backend/          # Python socket server with PostgreSQL
-│   ├── server.py
+│   ├── server_socketio.py
 │   ├── database.py
 │   ├── auth.py
-│   └── ...
+│   ├── config.py
+│   ├── message_handler.py
+│   ├── requirements.txt
+│   ├── .env.example
+│   └── schema.sql
 └── frontend/         # React Native mobile app
     ├── src/
     │   ├── screens/
     │   ├── services/
-    │   ├── components/
-    │   └── config/
-    └── ...
+    │   ├── config/
+    │   ├── types/
+    │   └── theme/
+    ├── App.tsx
+    ├── app.config.ts
+    ├── package.json
+    ├── .env.example
+    └── tsconfig.json
 ```
 
 ## 🚀 Technologies Used
 
 ### Backend
-- **Python 3.8+** - Socket Programming
-- **PostgreSQL** (Neon DB) - Database
-- **psycopg2** - PostgreSQL adapter
-- **Threading** - Concurrent client handling
+- Python 3.8+ with Socket.IO
+- PostgreSQL (Neon DB)
+- psycopg2 for database connectivity
+- bcrypt for password hashing
 
 ### Frontend
-- **React Native** (Expo) - Mobile Framework
-- **TCP Sockets** - Real-time communication
-- **React Navigation** - Screen navigation
-- **AsyncStorage** - Local data persistence
+- React Native (Expo SDK)
+- socket.io-client for real-time communication
+- React Navigation for screens
+- AsyncStorage for local persistence
 
 ## ✨ Features
-
-- ✅ User Registration & Authentication
-- ✅ Real-time Messaging
-- ✅ Message Persistence
-- ✅ Multiple Concurrent Users
-- ✅ Message History
-- ✅ WhatsApp-like UI
-- ✅ Auto-reconnection
-- ✅ Online Status
+- User registration and authentication
+- Real-time messaging with broadcast
+- Message history loading from DB
+- Persistent sessions
+- Connection auto-reconnect
+- WhatsApp-inspired UI
+- Validation and error handling
 
 ## 📋 Setup Instructions
 
-### Backend Setup
+### Backend
+1. Navigate to `backend/`
+2. Create virtual env: `python -m venv venv` (activate: `venv\Scripts\activate` on Windows or `source venv/bin/activate` on Mac/Linux)
+3. Install deps: `pip install -r requirements.txt`
+4. Copy `.env.example` to `.env` and fill in DB credentials (Neon/PostgreSQL)
+5. Run schema: Use schema.sql in your DB tool
+6. Start server: `python server_socketio.py`
 
-```bash
-cd backend
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-cp .env.example .env
-# Edit .env with your database credentials
-python server.py
-```
-
-See `backend/README.md` for detailed instructions.
-
-### Frontend Setup
-
-```bash
-cd frontend
-npm install
-npm start
-# Scan QR code with Expo Go app
-```
-
-See `frontend/README.md` for detailed instructions.
+### Frontend
+1. Navigate to `frontend/`
+2. Install deps: `npm install`
+3. Copy `.env.example` to `.env` and set SERVER_HOST/PORT/USE_HTTPS (use ngrok for mobile testing)
+4. Start: `npx expo start --tunnel`
+5. Scan QR with Expo Go app on phone
 
 ## 🔌 Communication Protocol
 
-All messages use **JSON format** with newline delimiter:
+Messages are JSON over Socket.IO.
 
-```json
-{
-  "type": "message_type",
-  "...": "data"
-}
-```
-
-Full protocol documentation in `backend/README.md`
-
-## 🎯 Assignment Details
-
-**Course**: Network Security and Internet Technologies  
-**Assignment**: CIA Assignment - Socket Programming  
-**Due Date**: January 19, 2026  
-**Points**: 20
-
-### Grading Criteria
-- Python Socket & Database (5 pts)
-- Mobile Application Functionality (5 pts)
-- Code Quality & GitHub (5 pts)
-- Demo Video & Presentation (5 pts)
-
-## 📹 Demo Video
-
-[Link will be added after recording]
+- Client to Server: e.g., `{"username": "user", "password": "pass"}` for login/register
+- Server to Client: e.g., `{"status": "success", "user_id": 1}` for responses
 
 ## 🧪 Testing
-
-### Test Locally
-1. Start backend server
-2. Run frontend on emulator/device
-3. Register and login
-4. Send messages
-5. Test with multiple devices
-
-### Integration Testing
-- Both devices on same WiFi
-- Backend server IP configured in frontend
-- Test concurrent users
-- Test message persistence
-
-## 🤝 Collaboration
-
-### Git Workflow
-```bash
-# Backend developer
-git checkout -b backend-dev
-# Make changes
-git add .
-git commit -m "Backend: Implement socket server"
-git push origin backend-dev
-
-# Frontend developer
-git checkout -b frontend-dev
-# Make changes
-git add .
-git commit -m "Frontend: Add chat screen"
-git push origin frontend-dev
-```
-
-### Communication
-- Daily standups
-- Test integration regularly
-- Document issues in GitHub Issues
-- Use pull requests for code review
-
-## 📝 Documentation
-
-- Backend Implementation: `backend/README.md`
-- Frontend Implementation: `frontend/README.md`
-- API Protocol: See backend README
-- Demo Script: `docs/DEMO_SCRIPT.md`
+- Local: Run backend, connect frontend via local IP
+- Tunnel: Use ngrok for backend, update frontend .env
+- Multi-device: Test real-time messaging with 2 or more phones
 
 ## 🐛 Troubleshooting
+- Connection fails: Check IP/port, same WiFi, firewall
+- DB errors: Verify .env credentials
+- Messages not saving: Check PostgreSQL connection
 
-### Cannot Connect to Server
-- Verify backend is running
-- Check IP address and port
-- Ensure same WiFi network
-- Check firewall settings
-
-### Messages Not Appearing
-- Check socket connection
-- Verify message format
-- Check backend logs
-- Test with netcat
-
-## 📚 Resources
-
-- [Python Socket Programming](https://docs.python.org/3/library/socket.html)
-- [React Native Documentation](https://reactnative.dev/)
-- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
-- [Neon DB](https://neon.tech/)
-
-## 📄 License
-
-This project is for educational purposes as part of university coursework.
-
-## 🙏 Acknowledgments
-
-Special thanks to our course instructor and peers for guidance and support.
-
----
-
-**Made with ❤️ for Network Security Course**
+## 📝 Notes
+- For production, add TLS/SSL
+- Use ngrok for mobile testing over internet
+```
