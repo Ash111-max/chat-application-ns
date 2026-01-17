@@ -36,8 +36,8 @@ console.log('🔧 Server URL:', getServerUrl());
 // ============================================
 export const APP_CONFIG = {
   appName: 'ChatApp',
-  maxMessageLength: 500,
-  messageHistoryLimit: 50,
+  maxMessageLength: 5000,
+  messageHistoryLimit: 1000,
   typingIndicatorTimeout: 3000,
 };
 
@@ -79,6 +79,6 @@ export const VALIDATION = {
     maxLength: 50,
   },
   message: {
-    maxLength: 500,
+    maxLength: 5000,
   },
 };
