@@ -1,4 +1,3 @@
-```
 # Real-Time Chat Application
 
 A real-time chat application with a Python socket server backend and React Native mobile frontend. Supports user registration, login, real-time messaging, and message history persistence.
@@ -8,8 +7,7 @@ A real-time chat application with a Python socket server backend and React Nativ
 - **Backend Developer**: Aaron Pinto - Python Socket Server
 
 ## 🏗️ Project Structure
-
-
+```
 chat-application/
 ├── backend/          # Python socket server with PostgreSQL
 │   ├── server_socketio.py
@@ -32,7 +30,7 @@ chat-application/
     ├── package.json
     ├── .env.example
     └── tsconfig.json
-
+```
 
 ## 🚀 Technologies Used
 
@@ -94,4 +92,3 @@ Messages are JSON over Socket.IO.
 ## 📝 Notes
 - For production, add TLS/SSL
 - Use ngrok for mobile testing over internet
-```
