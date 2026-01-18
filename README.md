@@ -1,4 +1,3 @@
-```
 # Real-Time Chat Application
 
 A real-time chat application with a Python socket server backend and React Native mobile frontend. Supports user registration, login, real-time messaging, and message history persistence.
