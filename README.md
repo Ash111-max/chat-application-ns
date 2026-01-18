@@ -8,6 +8,8 @@ A real-time chat application with a Python socket server backend and React Nativ
 
 ## 🏗️ Project Structure
 
+```
+
 chat-application/
 ├── backend/          # Python socket server with PostgreSQL
 │   ├── server_socketio.py
@@ -30,6 +32,7 @@ chat-application/
     ├── package.json
     ├── .env.example
     └── tsconfig.json
+```
 
 
 ## 🚀 Technologies Used
