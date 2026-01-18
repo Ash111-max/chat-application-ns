@@ -10,7 +10,7 @@
 
 ## Project Structure
 
-```
+
 frontend/
 ├── src/
 │   ├── screens/           # Screens: Login, Register, Chat
@@ -23,7 +23,7 @@ frontend/
 ├── package.json
 ├── .env.example
 └── tsconfig.json
-```
+
 
 ## Features
 - Registration/login with validation
