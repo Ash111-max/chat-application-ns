@@ -1,4 +1,3 @@
-```
 # Backend - Python Socket.IO Server
 
 ## Setup Instructions
@@ -45,4 +44,4 @@ backend/
 - DB fails: Check .env credentials
 - Connections fail: Check port/firewall
 - Use ngrok for mobile: `ngrok http 5555`
-```
+
