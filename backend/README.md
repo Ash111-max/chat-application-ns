@@ -1,4 +1,3 @@
-```
 # Backend - Python Socket.IO Server
 
 ## Setup Instructions
@@ -13,6 +12,7 @@ Server listens on 0.0.0.0:5555 (or .env port).
 
 ## Project Structure
 
+```
 
 backend/
 ├── server_socketio.py     # Main Socket.IO server
@@ -23,6 +23,7 @@ backend/
 ├── requirements.txt       # Deps
 ├── .env.example           # Env template
 └── schema.sql             # DB schema
+```
 
 
 ## Features
@@ -45,4 +46,3 @@ backend/
 - DB fails: Check .env credentials
 - Connections fail: Check port/firewall
 - Use ngrok for mobile: `ngrok http 5555`
-```
