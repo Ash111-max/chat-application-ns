@@ -1,4 +1,3 @@
-```
 # Frontend - React Native Chat App
 
 ## Setup Instructions
@@ -10,7 +9,7 @@
 
 ## Project Structure
 
-
+```
 frontend/
 ├── src/
 │   ├── screens/           # Screens: Login, Register, Chat
@@ -23,6 +22,7 @@ frontend/
 ├── package.json
 ├── .env.example
 └── tsconfig.json
+```
 
 
 ## Features
@@ -44,4 +44,3 @@ frontend/
 - Connection error: Check .env, backend running, same WiFi/ngrok
 - App crashes: `npx expo start -c`
 - Messages not appearing: Check SocketService logs
-```
